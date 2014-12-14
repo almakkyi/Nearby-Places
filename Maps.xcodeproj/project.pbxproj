@@ -28,6 +28,8 @@
 		0FF099A31A3CCD4E009944B9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF099A21A3CCD4E009944B9 /* OpenGLES.framework */; };
 		0FF099A51A3CCD57009944B9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF099A41A3CCD57009944B9 /* QuartzCore.framework */; };
 		0FF099A71A3CCD63009944B9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF099A61A3CCD63009944B9 /* SystemConfiguration.framework */; };
+		0FF099AC1A3CF0D7009944B9 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF099AB1A3CF0D7009944B9 /* SideMenuViewController.swift */; };
+		0FF099AE1A3CF258009944B9 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF099AD1A3CF258009944B9 /* ContainerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		0FF099A41A3CCD57009944B9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0FF099A61A3CCD63009944B9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0FF099A81A3CCF9E009944B9 /* Maps-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Maps-Bridging-Header.h"; sourceTree = "<group>"; };
+		0FF099AB1A3CF0D7009944B9 /* SideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
+		0FF099AD1A3CF258009944B9 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +127,8 @@
 			isa = PBXGroup;
 			children = (
 				0FF099691A3CC904009944B9 /* AppDelegate.swift */,
+				0FF099AD1A3CF258009944B9 /* ContainerViewController.swift */,
+				0FF099AB1A3CF0D7009944B9 /* SideMenuViewController.swift */,
 				0FF0996E1A3CC904009944B9 /* ViewController.swift */,
 				0FF099701A3CC904009944B9 /* Main.storyboard */,
 				0FF099731A3CC904009944B9 /* Images.xcassets */,
@@ -273,7 +279,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FF099AC1A3CF0D7009944B9 /* SideMenuViewController.swift in Sources */,
 				0FF0996F1A3CC904009944B9 /* ViewController.swift in Sources */,
+				0FF099AE1A3CF258009944B9 /* ContainerViewController.swift in Sources */,
 				0FF0996D1A3CC904009944B9 /* Maps.xcdatamodeld in Sources */,
 				0FF0996A1A3CC904009944B9 /* AppDelegate.swift in Sources */,
 			);
@@ -482,6 +490,7 @@
 				0FF099881A3CC904009944B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0FF099891A3CC904009944B9 /* Build configuration list for PBXNativeTarget "MapsTests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +499,7 @@
 				0FF0998B1A3CC904009944B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
