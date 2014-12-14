@@ -8,11 +8,6 @@
 
 import UIKit
 
-@objc
-protocol SidePanelViewControllerDelegate {
-    
-}
-
 class SideMenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var categoriesTable: UITableView!
@@ -21,7 +16,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         
         self.categoriesTable.delegate = self
-        // Do any additional setup after loading the view.
+        self.categoriesTable.dataSource = self
     }
 
     override func didReceiveMemoryWarning() {

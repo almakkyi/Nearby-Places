@@ -11,7 +11,6 @@ import UIKit
 @objc
 protocol ViewControllerDelegate {
     optional func toggleLeftPanel()
-    optional func toggleRightPanel()
     optional func collapseSidePanels()
 }
 
@@ -21,13 +20,27 @@ class ViewController: UIViewController, GMSMapViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var camera = GMSCameraPosition.cameraWithLatitude(37.80948,
+            longitude:5.965699, zoom:2)
+        var mapView = GMSMapView.mapWithFrame(CGRectZero, camera:camera)
+        
+        // Available map types: kGMSTypeNormal, kGMSTypeSatellite, kGMSTypeHybrid,
+        // kGMSTypeTerrain, kGMSTypeNone
+        
+        // Set the mapType to Satellite
+        mapView.mapType = kGMSTypeSatellite
+        self.view = mapView
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
+    
+    // Whent he menu button is pressed
+    @IBAction func menuButton(sender: UIBarButtonItem) {
+        delegate?.toggleLeftPanel?()
+    }
 
 }
 
