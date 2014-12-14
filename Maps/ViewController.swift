@@ -8,7 +8,16 @@
 
 import UIKit
 
+@objc
+protocol ViewControllerDelegate {
+    optional func toggleLeftPanel()
+    optional func toggleRightPanel()
+    optional func collapseSidePanels()
+}
+
 class ViewController: UIViewController, GMSMapViewDelegate {
+    
+    var delegate: ViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()

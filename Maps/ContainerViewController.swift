@@ -9,25 +9,38 @@
 import UIKit
 import QuartzCore
 
-class ContainerViewController: UIViewController {
+class ContainerViewController: UIViewController, ViewControllerDelegate {
+    
+    var mainNavigationController: UINavigationController!
+    var viewController: ViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        func toggleLeftPanel() {
-        }
         
-        func addLeftPanelViewController() {
-        }
+        viewController = UIStoryboard.viewController()
+        viewController.delegate = self
         
-        func animateLeftPanel(#shouldExpand: Bool) {
-        }
+        mainNavigationController = UINavigationController(rootViewController: viewController)
+        view.addSubview(mainNavigationController.view)
+        addChildViewController(mainNavigationController)
         
-        // Gesture Recogniser
-        
-        func handlePanGesture(recognizer: UIPanGestureRecognizer) {
-        }
+        mainNavigationController.didMoveToParentViewController(self)
     }
+    
+    func toggleLeftPanel() {
+    }
+    
+    func addLeftPanelViewController() {
+    }
+    
+    func animateLeftPanel(#shouldExpand: Bool) {
+    }
+    
+    // Gesture Recogniser
+    
+    func handlePanGesture(recognizer: UIPanGestureRecognizer) {
+    }
+    
 }
 
 private extension UIStoryboard {
@@ -37,7 +50,7 @@ private extension UIStoryboard {
         return mainStoryboard().instantiateViewControllerWithIdentifier("SideMenuViewController") as? SideMenuViewController
     }
     
-    class func centerViewController() -> ViewController? {
+    class func viewController() -> ViewController? {
         return mainStoryboard().instantiateViewControllerWithIdentifier("ViewController") as? ViewController
     }
 }

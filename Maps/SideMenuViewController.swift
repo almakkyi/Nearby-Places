@@ -8,13 +8,19 @@
 
 import UIKit
 
+@objc
+protocol SidePanelViewControllerDelegate {
+    
+}
+
 class SideMenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var categoriesTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.categoriesTable.delegate = self
         // Do any additional setup after loading the view.
     }
 
