@@ -27,6 +27,9 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
     var camera = GMSCameraPosition()
     var mapView = GMSMapView()
     var marker = GMSMarker()
+    
+    // Array of places
+    var nearbyPlaces:[place] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +43,12 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         self.location.startUpdatingLocation()
         
         self.showMap(lon, lat: lat)
+        
+        // Testin
+        
+        Places.searchNearby(51.50998, lat: -0.1337, category: "food", completion: {(result: Array<place>) in
+            self.nearbyPlaces = result
+        })
         
     }
 
@@ -100,6 +109,16 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
     // Whent he menu button is pressed
     @IBAction func menuButton(sender: UIBarButtonItem) {
         delegate?.toggleLeftPanel?()
+    }
+    
+    // Saving Battery //
+    
+    override func viewWillAppear(animated: Bool) {
+        self.location.startUpdatingLocation()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        self.location.stopUpdatingLocation()
     }
 
 }
