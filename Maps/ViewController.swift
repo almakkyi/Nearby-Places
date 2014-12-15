@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 @objc
 protocol ViewControllerDelegate {
@@ -14,16 +15,61 @@ protocol ViewControllerDelegate {
     optional func collapseSidePanels()
 }
 
-class ViewController: UIViewController, GMSMapViewDelegate {
+class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     var delegate: ViewControllerDelegate?
+    
+    let location = CLLocationManager()
+    var lon:Double = 37.80948
+    var lat:Double = 5.965699
+    
+    // Google Maps
+    var camera = GMSCameraPosition()
+    var mapView = GMSMapView()
+    var marker = GMSMarker()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var camera = GMSCameraPosition.cameraWithLatitude(37.80948,
-            longitude:5.965699, zoom:2)
-        var mapView = GMSMapView.mapWithFrame(CGRectZero, camera:camera)
+        // Location //
+        CLLocationManager.locationServicesEnabled()
+        self.location.requestWhenInUseAuthorization()
+        self.location.delegate = self
+        self.location.distanceFilter = 20
+        self.location.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        self.location.startUpdatingLocation()
+        
+        self.showMap(lon, lat: lat)
+        
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        println("new location")
+        if let loc = locations.last as? CLLocation {
+            let latLon = loc.coordinate
+            println("Lat: \(latLon.latitude), Lon: \(latLon.longitude)")
+            if (lat != latLon.latitude && lon != latLon.longitude) {
+                self.lat = latLon.latitude
+                self.lon = latLon.longitude
+                
+                self.showMap(latLon.latitude, lat: latLon.longitude)
+                self.setCurrentPin(latLon.latitude, lat: latLon.longitude)
+            }
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+        println("Error")
+    }
+    
+    func showMap(lon: Double, lat: Double) {
+        // Goolge Maps //
+        self.camera = GMSCameraPosition.cameraWithLatitude(lon, longitude:lat, zoom:15)
+        self.mapView = GMSMapView.mapWithFrame(CGRectZero, camera:camera)
         
         // Available map types: kGMSTypeNormal, kGMSTypeSatellite, kGMSTypeHybrid,
         // kGMSTypeTerrain, kGMSTypeNone
@@ -32,9 +78,13 @@ class ViewController: UIViewController, GMSMapViewDelegate {
         mapView.mapType = kGMSTypeSatellite
         self.view = mapView
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    
+    func setCurrentPin(lon: Double, lat: Double) {
+        self.marker.position = camera.target
+        
+        marker.snippet = "Current"
+        marker.appearAnimation = kGMSMarkerAnimationPop
+        marker.map = mapView
     }
     
     // Whent he menu button is pressed
