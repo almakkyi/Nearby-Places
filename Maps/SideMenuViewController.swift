@@ -8,7 +8,16 @@
 
 import UIKit
 
+@objc
+protocol SidePanelViewControllerDelegate {
+    func categorySelected(category: String)
+}
+
 class SideMenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    var categories:[String] = ["Food", "Banks", "Parks", "Police", "Hospital", "Doctor", "Dentist", "Cafe"]
+    
+    var delegate: SidePanelViewControllerDelegate?
 
     @IBOutlet weak var categoriesTable: UITableView!
     
@@ -29,13 +38,19 @@ class SideMenuViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return self.categories.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CategoryCell", forIndexPath: indexPath) as UITableViewCell
-        cell.textLabel?.text = "Hello"
+        cell.textLabel?.text = self.categories[indexPath.row]
         return cell
+    }
+    
+    // When a category is selected
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let selectedCategory = categories[indexPath.row]
+        delegate?.categorySelected(selectedCategory)
     }
 
     /*

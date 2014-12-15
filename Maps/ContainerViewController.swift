@@ -56,6 +56,8 @@ class ContainerViewController: UIViewController, ViewControllerDelegate {
     }
     
     func addChildSidePanelController (sidePanelController: SideMenuViewController) {
+        sidePanelController.delegate = viewController
+        
         view.insertSubview(sidePanelController.view, atIndex: 0)
         
         addChildViewController(sidePanelController)

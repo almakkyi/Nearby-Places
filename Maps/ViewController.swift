@@ -15,7 +15,7 @@ protocol ViewControllerDelegate {
     optional func collapseSidePanels()
 }
 
-class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, SidePanelViewControllerDelegate {
     
     var delegate: ViewControllerDelegate?
     
@@ -85,6 +85,16 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         marker.snippet = "Current"
         marker.appearAnimation = kGMSMarkerAnimationPop
         marker.map = mapView
+    }
+    
+    func categorySelected(category: String) {
+        println(category)
+        
+        delegate?.toggleLeftPanel?()
+    }
+    
+    func getNearby() {
+        
     }
     
     // Whent he menu button is pressed
