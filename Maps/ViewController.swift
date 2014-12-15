@@ -27,6 +27,8 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
     var lon:Double = 37.80948
     var lat:Double = 5.965699
     
+    var threads: Int = 0
+    
     // Array of places
     var nearbyPlaces:[place] = []
 
@@ -79,12 +81,38 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         println(category)
         
         delegate?.toggleLeftPanel?()
+        
+        self.getNearby()
     }
     
     func getNearby() {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        self.threads++
         Places.searchNearby(51.50998, lat: -0.1337, category: "food", completion: {(result: Array<place>) in
             self.nearbyPlaces = result
+            dispatch_async(dispatch_get_main_queue(), {
+                self.setPins()
+                self.threads--
+                if(self.threads == 0) {
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                }
+            })
         })
+    }
+    
+    func setPins() {
+        for place in nearbyPlaces {
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2DMake(place.lat, place.lon)
+            marker.appearAnimation = kGMSMarkerAnimationPop
+            var imageView = UIImageView(frame: CGRectMake(5, 5, 5, 5))
+            var image = place.icon
+            imageView.image = image;
+            marker.icon = image
+            marker.map = mapView
+            
+            self.mapView.reloadInputViews()
+        }
     }
     
     // Control the differne types of map views
