@@ -15,7 +15,7 @@ protocol SidePanelViewControllerDelegate {
 
 class SideMenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var categories:[String] = ["Food", "Banks", "Parks", "Police", "Hospital", "Doctor", "Dentist", "Cafe"]
+    var categories:[String] = ["food", "bar", "atm", "park", "laundry", "casino", "library", "doctor"]
     
     var delegate: SidePanelViewControllerDelegate?
 

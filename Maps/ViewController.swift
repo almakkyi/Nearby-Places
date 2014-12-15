@@ -29,6 +29,8 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
     
     var threads: Int = 0
     
+    var selectedCategory: String?
+    
     // Array of places
     var nearbyPlaces:[place] = []
 
@@ -66,7 +68,7 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
                 self.lat = latLon.latitude
                 self.lon = latLon.longitude
                 
-                mapView.camera = GMSCameraPosition(target: latLon, zoom: 15, bearing: 0, viewingAngle: 0)
+                mapView.camera = GMSCameraPosition(target: latLon, zoom: 20, bearing: 0, viewingAngle: 0)
                 
                 location.stopUpdatingLocation()
             }
@@ -79,6 +81,7 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
     
     func categorySelected(category: String) {
         println(category)
+        self.selectedCategory = category
         
         delegate?.toggleLeftPanel?()
         
@@ -88,7 +91,7 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
     func getNearby() {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         self.threads++
-        Places.searchNearby(51.50998, lat: -0.1337, category: "food", completion: {(result: Array<place>) in
+        Places.searchNearby(51.50998, lat: -0.1337,  category: selectedCategory!, completion: {(result: Array<place>) in
             self.nearbyPlaces = result
             dispatch_async(dispatch_get_main_queue(), {
                 self.setPins()
